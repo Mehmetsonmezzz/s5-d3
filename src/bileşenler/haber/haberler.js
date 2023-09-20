@@ -95,6 +95,43 @@ const data = [
   Bileşeniniz, argümanı haberleri içeren dizi olarak alan bir fonksiyon olacak,
   ve aşağıdaki gibi görünen bir DOM düğümü döndürecek:
 
+*/
+
+const haberYapici = (haber) => {
+  const articleDiv = document.createElement("div");
+  articleDiv.classList.add("article");
+
+  const h2 = document.createElement("h2");
+  h2.textContent = haber.baslik;
+
+  const p = document.createElement("p");
+  p.classList.add("tarih");
+  p.textContent = haber.tarih;
+
+  const p1 = document.createElement("p");
+  p1.textContent = haber.ilkParagraf;
+  const p2 = document.createElement("p");
+  p2.textContent = haber.ikinciParagraf;
+  const p3 = document.createElement("p");
+  p3.textContent = haber.ucuncuParagraf;
+
+  const button = document.createElement("button");
+  button.classList.add("expandButton");
+  button.textContent = "+";
+
+  articleDiv.appendChild(h2);
+  articleDiv.appendChild(p);
+  articleDiv.appendChild(button);
+  articleDiv.appendChild(p1);
+  articleDiv.appendChild(p2);
+  articleDiv.appendChild(p3);
+  button.addEventListener("click", () => {
+    articleDiv.classList.toggle("article-open");
+  });
+  return articleDiv;
+};
+
+/*
   <div class="article">
     <h2>{haber başlığı}</h2>
     <p class="tarih">{haber tarihi}</p>
@@ -111,7 +148,38 @@ const data = [
 
   Adım 4: Fonksiyonunuzun dışında, tüm datayı döngüye sokun(loop). Bir div.article öğesi oluşturmak ve bunu div.articles içindeki DOM'a eklemek için
   her yinelemede oluşturduğunuz bileşeninizi kullanacaksınız(bknz. index.html).
-
+  
   Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
   Eklediğiniz yeni haberi görmek için sayfayı yenileyin.
 */
+
+const yeniNesne = {
+  baslik: "Yeni Başlık",
+  tarih: "11 Kasım 2022",
+  ilkParagraf: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
+    moff wicket tatooine luke.Solo wampa wampa calrissian yoda moff.Darth grievous darth gonk darth hutt.Darth baba skywalker
+    watto fett jango maul han.Mon ewok sidious sidious lando kenobi grievous gamorrean solo.Yoda wedge utapau darth calamari.
+    Hutt calamari darth jabba.Darth dooku amidala organa moff.Boba darth binks solo hutt skywalker dantooine skywalker.Qui - gonn
+    jar twi'lek jinn leia jango skywalker mon.`,
+
+  ikinciParagraf: `Grievous fett calamari anakin skywalker hutt.Alderaan darth kenobi darth r2- d2
+    windu mothma.Sidious darth calamari moff.Wampa mothma sith wedge solo mara.Darth gonk maul sith moff chewbacca palpatine
+    mace amidala.C - 3po solo skywalker anakin yoda leia.Maul wampa bespin watto jade ewok darth jabba.Lando dantooine moff
+    k - 3po dantooine luke.Fisto mandalore darth wedge c - 3p0 ahsoka.Secura moff palpatine fett.Anakin sith darth darth.Moff
+    solo leia ben ponda jade.Binks jango aayla skywalker skywalker cade.Mustafar darth ventress anakin watto.Yavin jawa sebulba
+    owen jinn tatooine sith organa.`,
+
+  ucuncuParagraf: `Dagobah hutt jawa leia calamari ventress skywalker yoda. Binks wicket hutt coruscant sidious
+    naboo ackbar tatooine. Hutt lars padmé darth. Maul solo darth darth jabba qui-gon chewbacca darth maul. Moff baba wicket
+    han. C-3po antilles moff qui-gon ahsoka aayla dooku amidala. Palpatine droid amidala droid k-3po twi'lek padmé wookiee. Leia
+    moff calamari mon obi-wan. Solo grievous lando coruscant. Jinn darth palpatine obi-wan mon.`,
+};
+
+data.push(yeniNesne);
+
+const ekle = document.querySelector(".articles");
+data.map((haber, i) => {
+  const haberEkle = haberYapici(haber);
+
+  ekle.appendChild(haberEkle);
+});
